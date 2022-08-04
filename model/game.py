@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 from sqlmodel import Field, SQLModel
 
 class Game(SQLModel, table=True):
@@ -11,6 +12,7 @@ class Game(SQLModel, table=True):
     competition_id: uuid.UUID = Field(default=None, foreign_key="competition.id",nullable=False)
     wind: int
     seat: int
+    honba: int
     continuation: int
-    dora: str
-    method: int
+    method: int #tsumo/ron/draw/chunbo
+    reason: Optional[str]

@@ -1,8 +1,7 @@
 import uuid
-from typing import Optional
 from sqlmodel import Field, SQLModel
 
-class Yaku(SQLModel, table=True):
+class ResultYaku(SQLModel, table=True):
     id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
         primary_key=True,
@@ -10,7 +9,4 @@ class Yaku(SQLModel, table=True):
         nullable=False,
     )
     result_id: uuid.UUID = Field(default=None, foreign_key="result.id",nullable=False)
-    name: str
-    yakuman: bool
-    han: int
-    fu: Optional[int]
+    yaku_id: uuid.UUID = Field(default=None, foreign_key="yaku.id",nullable=False)
