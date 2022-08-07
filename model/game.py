@@ -9,7 +9,7 @@ class Game(SQLModel, table=True):
         index=True,
         nullable=False,
     )
-    competition_id: uuid.UUID = Field(default=None, foreign_key="competition.id",nullable=False)
+    match_id: uuid.UUID = Field(default=None, foreign_key="match.id",nullable=False)
     wind: int
     seat: int
     honba: int

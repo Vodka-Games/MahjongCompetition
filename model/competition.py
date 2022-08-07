@@ -9,4 +9,7 @@ class Competition(SQLModel, table=True):
         index=True,
         nullable=False,
     )
-    date: datetime.date
+    organizer_id: uuid.UUID = Field(default=None, foreign_key="user.id",nullable=False)
+    start_date: datetime.datetime
+    end_date: datetime.datetime = Field(default= None, nullable=True)
+    title: str

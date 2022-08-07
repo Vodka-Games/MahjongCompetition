@@ -12,3 +12,4 @@ class Dora(SQLModel, table=True):
     game_id: uuid.UUID = Field(default=None, foreign_key="game.id",nullable=False)
     dora: int
     order: int
+    ura: bool
