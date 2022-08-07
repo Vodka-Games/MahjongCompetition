@@ -1,8 +1,10 @@
 from Crypto.Cipher import AES
-from secrets import token_bytes
 import secret
+from passlib.context import CryptContext
+
 
 key = secret.crypto_key
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def encrypt(msg):
     cipher = AES.new(key, AES.MODE_EAX)
@@ -18,3 +20,9 @@ def decrypt(nonce, ciphertext, tag):
         return plaintext.decode('ascii')
     except:
         return False
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
