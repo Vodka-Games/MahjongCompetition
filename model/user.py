@@ -1,9 +1,12 @@
+from dataclasses import dataclass
 import uuid
 import re
-import hashlib
-from sqlmodel import Field, SQLModel, create_engine
+from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 from fastapi import HTTPException
 from typing import get_type_hints
+
+from util.crypto import get_password_hash
 
 
 email_reg= re.compile("^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$")
@@ -35,7 +38,7 @@ class User(SQLModel, table=True):
         for var in User.__fields__.keys():
             var_instancce = getattr(self, var)
             if not isinstance(var_instancce, type_hints[var]):
-                raise HTTPException(status_code=400, detail=f"TypeError: {class_name}.{var_type} must be {var_type} not {type(var)}")
+                raise HTTPException(status_code=400, detail=f"TypeError: {class_name}.{var} must be {type_hints[var]} not {type(var)}")
 
         if not email_reg.match(self.email):
             raise HTTPException(status_code=400, detail="Invalidation Model: user.email")
@@ -44,4 +47,12 @@ class User(SQLModel, table=True):
             raise HTTPException(status_code=400, detail="Invalidation Model: user.student_id")
 
     def hashing_password(self):
-        self.password = hashlib.sha256(self.password.encode()).hexdigest()
+        self.password = get_password_hash(self.password)
+
+    def to_view_model(self):
+        print(self.id,self.name)
+        return User1(id=self.id,name=self.name)
+
+class User1(BaseModel):
+    id: uuid.UUID
+    name: str
