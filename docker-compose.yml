@@ -1,0 +1,33 @@
+version: '3.4'
+volumes:
+  mysql-volume:
+services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./.env
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    links:
+      - "db:mysql"
+  db:
+    image: mysql:8.0.28
+    container_name: mydb
+    build:
+      context: .
+      dockerfile: ./Dockerfile_mysql
+    ports:
+        - "32001:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "api"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_DATABASE: "mahjong"
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      

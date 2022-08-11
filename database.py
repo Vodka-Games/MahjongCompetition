@@ -1,9 +1,12 @@
+from asyncio import constants
 from exception import EngineNoneTypeException
 import secret
 
 from model import competition,dora,game, matchplayer,result,resultyaku,user,match,yaku
 from sqlmodel import  SQLModel, create_engine, Session,select
 from sqlalchemy.future import Engine
+
+print(secret.mysql_connection_string)
 
 engine = create_engine(secret.mysql_connection_string,echo=True)
 
