@@ -13,3 +13,5 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
             echo "테스트 출력"
+            echo "${{ secrets.ENV_FILE }}" >> .env
+            cat .env
