@@ -14,7 +14,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          echo "테스트 출력"
-          ls -al
           echo "${{ secrets.ENV_FILE }}" >> .env
-          cat .env
+          git clone "${{ github.repositoryUrl }}"
+          docker compose down
+          docker compose up -d
