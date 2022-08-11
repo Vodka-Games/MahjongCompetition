@@ -10,7 +10,6 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         script: |
             echo "테스트 출력"
