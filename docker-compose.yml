@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./.env
+    ports:
+      - 8000:8000
